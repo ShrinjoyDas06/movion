@@ -25,7 +25,6 @@ Browse trending films, explore detailed information, and build your personal wat
 
 Whether you’re discovering your next favorite movie or keeping track of what you’ve already seen, **Movion** makes your cinematic journey effortless.
 
-🎥 **Demo Video:** [Click here](#)  
 📱 **Download APK:** [Click here](#)
 
 ---
@@ -69,9 +68,6 @@ Save movies you want to watch later. Stored locally using AsyncStorage.
 
 ### ✅ Mark as Watched
 Keep track of the movies you’ve already watched.
-
-### 🌗 Dark Mode
-Toggle between light and dark themes for a perfect viewing experience.
 
 ### 🔔 Notifications & Feedback
 Toast messages give real-time confirmation for actions like saving, removing, or marking movies as watched.
