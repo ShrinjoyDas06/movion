@@ -28,9 +28,7 @@ Whether you’re looking for a new movie to watch, tracking films you've already
     * Awards & Runtime
 * **❤️ Save for Later:** Find an interesting movie? Save it to your personal "Watchlist" to view later.
 * **✅ Mark as Watched:** Keep a list of all the movies you've already seen.
-* **🌗 Light & Dark Mode:** Toggle between light and dark themes for your comfort.
 * **🔔 Notifications:** Get instant feedback when you add, remove, or update a movie in your lists.
-* **📤 Share with Friends:** Easily share movie details with your friends.
 
 ---
 
