@@ -1,50 +1,88 @@
-# Welcome to your Expo app 👋
+# 🎬 Movion
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Movion is a beautifully designed mobile app for movie lovers.  
+Browse trending films, explore detailed movie information, and organize your personal watchlist — all in one elegant experience. Whether you’re discovering your next favorite film or tracking what you’ve already seen, **Movion** makes managing your movie journey effortless.
 
-## Get started
+🎥 **Demo Video:** [Click here]  
+📱 **Download APK:** [Click here]
 
-1. Install dependencies
+---
 
-   ```bash
-   npm install
-   ```
+## 🛠️ Tech Stack
 
-2. Start the app
+**Frontend:** Built with React Native + Expo  
+**Routing:** Expo Router for smooth, multi-screen navigation  
+**State Management & Storage:**
+- **AsyncStorage:** Persistent local storage for “Saved” and “Watched” movies  
+- **React Context / Hooks:** Global state management across all screens  
 
-   ```bash
-   npx expo start
-   ```
+**Styling & UI Components:**
+- **Lucide React Native:** Crisp, scalable icons  
+- **Expo Linear Gradient:** Eye-catching gradient overlays and backgrounds  
+- **Toastify React Native:** Toast notifications for instant user feedback  
 
-In the output, you'll find options to open the app in a
+**Additional Libraries:**
+- **React Native Reanimated + Gesture Handler:** Smooth card transitions and tap effects  
+- **Expo Font:** Custom typography for a cinematic feel  
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+---
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## ✨ Features
 
-## Get a fresh project
+🎞️ **Movie Gallery**  
+A dynamic grid of high-quality movie posters. Tap any movie to open its detailed page.
 
-When you're ready, run:
+📖 **Movie Details**  
+Get everything you need to know before watching:
+- Title  •  Genre  •  Release Year  •  Awards  
+- Cast & Crew  •  Screenplay  •  Plot Summary  
+- IMDb Rating  •  Runtime  •  Language  
+
+❤️ **Save for Later**  
+Add movies to your “Watch Later” list — stored locally so they’re always there, even offline.
+
+✅ **Mark as Watched**  
+Keep track of what you’ve already seen with one tap.
+
+🌗 **Dark Mode**  
+Switch to a sleek dark theme for a cinematic nighttime experience.
+
+🔔 **Notifications & Feedback**  
+Toast messages confirm your actions — saving, removing, or marking movies as watched.
+
+📤 **Share Your Favorites**  
+Share movie details directly to social media or your clipboard.
+
+💫 **Smooth Animations**  
+Elegant transitions and subtle motion effects enhance your browsing experience.
+
+---
+
+## 🖼️ Screenshots
+
+🖼️ Movie Grid  |  📄 Movie Details  |  💾 Saved Movies  |  ✅ Watched List  |  🌙 Dark Mode  
+
+*(Add your app screenshots here — ideally 6–10 showing key screens.)*
+
+---
+
+## ⚙️ How to Install the APK
+
+1. **Download the APK:** [Download Link]  
+2. **Enable Install from Unknown Sources:**  
+   - Go to *Settings > Apps & Notifications > Special Access > Install Unknown Apps*  
+   - Choose your browser or file manager and enable **Allow from this source**
+3. **Install the App:**  
+   - Open your file manager  
+   - Locate the downloaded APK  
+   - Tap to install and follow the on-screen prompts  
+4. Once installed, find **Movion** in your app drawer and start exploring!
+
+---
+
+## ⚙️ How to Run Locally
 
 ```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+git clone https://github.com/ShrinjoyDas06/movion
+cd movion
+npm install
