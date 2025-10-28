@@ -47,12 +47,6 @@ This project is built with modern technologies to ensure a high-quality, perform
 
 ---
 
-## 🖼️ Screenshots
-
-*(Recommended: Add screenshots of your app here to visually showcase its features. Create an `assets` folder in your repo to store them.)*
-
-| Home Screen | Movie Details | Search Movies | Saved List | Profile Section |
-| :---: | :---: | :---: |
 | ![Movion Home Screen](./assets/screenshots/index.jpg) | ![Movion Movie Details](./assets/screenshots/moviedetailspic.jpg) | ![Movion Search Movies](./assets/screenshots/savedmovies.jpg) |
 ![Movion Saved List](./assets/screenshots/savedmovies.jpg) | ![Movion Profile Section](./assets/screenshots/profilesection.jpg) |
 
