@@ -20,18 +20,18 @@ const Profile = () => {
     bio: "Movie lover • Critic • Always chasing great stories 🍿",
   });
 
-  const [savedMovies, setSavedMovies] = useState<Movie[]>([]);
+  const [watchedMovies, setWatchedMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const loadSavedMovies = async () => {
+  const loadWatchedMovies = async () => {
     try {
       setLoading(true);
-      const saved = await AsyncStorage.getItem("savedMovies");
-      const movies = saved ? JSON.parse(saved) : [];
-      setSavedMovies(movies);
+      const watched = await AsyncStorage.getItem("watchedMovies");
+      const movies = watched ? JSON.parse(watched) : [];
+      setWatchedMovies(movies);
     } catch (error) {
-      console.error("Error loading saved movies:", error);
-      setSavedMovies([]);
+      console.error("Error loading watched movies:", error);
+      setWatchedMovies([]);
     } finally {
       setLoading(false);
     }
@@ -40,7 +40,7 @@ const Profile = () => {
   // Refresh count when the Profile screen is focused
   useFocusEffect(
     useCallback(() => {
-      loadSavedMovies();
+      loadWatchedMovies();
     }, [])
   );
 
@@ -74,9 +74,9 @@ const Profile = () => {
         <View className="flex-row justify-center mt-6 space-x-12">
           <View className="items-center">
             <Text className="text-white text-xl font-bold">
-              {loading ? "…" : savedMovies.length}
+              {loading ? "…" : watchedMovies.length}
             </Text>
-            <Text className="text-gray-400 text-sm">Saved Movies</Text>
+            <Text className="text-gray-400 text-sm">Watched Movies</Text>
           </View>
         </View>
 
@@ -87,10 +87,10 @@ const Profile = () => {
           </TouchableOpacity>
         </View>
 
-        {/* Saved Preview Section */}
+        {/* Watched Movies Preview Section */}
         <View className="mt-10">
           <Text className="text-lg text-white font-bold mb-3">
-            Your Saved Movies
+            Your Watched Movies
           </Text>
 
           <ScrollView
@@ -98,11 +98,18 @@ const Profile = () => {
             showsHorizontalScrollIndicator={false}
             className="flex-row space-x-4"
           >
-            {savedMovies.length > 0 ? (
-              savedMovies.slice(0, 5).map((movie) => (
+            {watchedMovies.length > 0 ? (
+              watchedMovies.slice(0, 5).map((movie) => (
                 <View
                   key={movie.imdbID}
-                  className="w-32 h-48 bg-gray-800 rounded-2xl overflow-hidden"
+                  className="w-[110px] h-[165px] bg-white/5 rounded-2xl overflow-hidden"
+                  style={{
+                    shadowColor: "#000",
+                    shadowOpacity: 0.25,
+                    shadowRadius: 3,
+                    shadowOffset: { width: 0, height: 2 },
+                    elevation: 3,
+                  }}
                 >
                   <Image
                     source={{ uri: movie.Poster }}
@@ -113,7 +120,7 @@ const Profile = () => {
               ))
             ) : (
               <Text className="text-gray-400 text-sm mt-2">
-                {loading ? "Loading..." : "No saved movies yet."}
+                {loading ? "Loading..." : "No watched movies yet."}
               </Text>
             )}
           </ScrollView>
