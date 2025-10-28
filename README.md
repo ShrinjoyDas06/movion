@@ -1,50 +1,132 @@
-# Welcome to your Expo app 👋
+# 🎬 Movion
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Discover, Explore & Track Movies You Love 🍿
 
-## Get started
+[![React Native](https://img.shields.io/badge/React%20Native-Expo-blue?style=for-the-badge&logo=react)](https://reactnative.dev/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+[![Stars](https://img.shields.io/github/stars/ShrinjoyDas06/movion?color=ffcc00&style=for-the-badge)](https://github.com/ShrinjoyDas06/movion/stargazers)
+[![Forks](https://img.shields.io/github/forks/ShrinjoyDas06/movion?color=00bfff&style=for-the-badge)](https://github.com/ShrinjoyDas06/movion/network/members)
 
-1. Install dependencies
+---
 
-   ```bash
-   npm install
-   ```
+## 🚀 About Movion
 
-2. Start the app
+**Movion** is a modern, sleek mobile application built for movie enthusiasts. It allows users to browse an extensive catalog of movies, view detailed information, and manage their personal watchlists.
 
-   ```bash
-   npx expo start
-   ```
+Whether you’re looking for a new movie to watch, tracking films you've already seen, or saving a list for later, Movion provides a seamless and elegant experience.
 
-In the output, you'll find options to open the app in a
+---
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## ✨ Features
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+* **🎞️ Discover Movies:** Browse a beautiful gallery of movie posters to find trending, popular, and upcoming films.
+* **📖 Detailed Information:** Get all the details you need before watching, including:
+    * Plot Summary
+    * Genre & Year
+    * IMDb Rating
+    * Cast & Screenplay
+    * Awards & Runtime
+* **❤️ Save for Later:** Find an interesting movie? Save it to your personal "Watchlist" to view later.
+* **✅ Mark as Watched:** Keep a list of all the movies you've already seen.
+* **🔔 Notifications:** Get instant feedback when you add, remove, or update a movie in your lists.
 
-## Get a fresh project
+---
 
-When you're ready, run:
+## 🛠️ Tech Stack
 
-```bash
-npm run reset-project
-```
+This project is built with modern technologies to ensure a high-quality, performant, and scalable application.
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+* **Core:** React Native + Expo
+* **Routing:** Expo Router
+* **Styling:** NativeWind (Tailwind CSS for React Native)
+* **State Management:** React Context & Hooks
+* **Local Storage:** AsyncStorage (for saving watchlists)
+* **Icons:** Lucide React Native
+* **Animations:** React Native Reanimated
+* **Language:** TypeScript
 
-## Learn more
+---
 
-To learn more about developing your project with Expo, look at the following resources:
+## 🖼️ Screenshots
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+*(Recommended: Add screenshots of your app here to visually showcase its features. Create an `assets` folder in your repo to store them.)*
 
-## Join the community
+| Home Screen | Movie Details | Search Movies | Saved List | Profile Section |
+| :---: | :---: | :---: |
+| ![Movion Home Screen](./assets/screenshots/index.jpg) | ![Movion Movie Details](./assets/screenshots/moviedetailspic.jpg) | ![Movion Search Movies](./assets/screenshots/savedmovies.jpg) |
+![Movion Saved List](./assets/screenshots/savedmovies.jpg) | ![Movion Profile Section](./assets/screenshots/profilesection.jpg) |
 
-Join our community of developers creating universal apps.
+---
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## ⚙️ Getting Started
+
+To get a local copy up and running, follow these simple steps.
+
+### Prerequisites
+
+* Node.js (v18 or newer recommended)
+* npm or yarn
+* Expo Go app on your mobile device (or an Android/iOS simulator)
+
+### Installation
+
+1.  **Clone the repository:**
+    ```sh
+    git clone [https://github.com/ShrinjoyDas06/movion.git](https://github.com/ShrinjoyDas06/movion.git)
+    ```
+
+2.  **Navigate to the project directory:**
+    ```sh
+    cd my-app
+    ```
+
+3.  **Install dependencies:**
+    ```sh
+    npm install
+    ```
+    or
+    ```sh
+    yarn install
+    ```
+
+### Running the App
+
+1.  **Start the development server:**
+    ```sh
+    npm start
+    ```
+    or
+    ```sh
+    yarn start
+    ```
+
+2.  **Scan the QR code:**
+    Open the Expo Go app on your phone and scan the QR code shown in your terminal. This will bundle the app and run it on your device.
+
+---
+
+## 🤝 Contributing
+
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+
+1.  Fork the Project
+2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3.  Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4.  Push to the Branch (`git push origin feature/AmazingFeature`)
+5.  Open a Pull Request
+
+---
+
+## 📄 License
+
+Distributed under the MIT License. See `LICENSE` file for more information.
+
+---
+
+## 📧 Contact
+
+Shrinjoy Das - [GitHub Profile](https://github.com/ShrinjoyDas06)
+
+Project Link: [https://github.com/ShrinjoyDas06/movion](https://github.com/ShrinjoyDas06/movion)
