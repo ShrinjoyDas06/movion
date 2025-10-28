@@ -1,48 +1,66 @@
 import { useEffect, useState } from "react";
-import { ActivityIndicator, FlatList, Image, Text, View } from "react-native";
+import { FlatList, Image, Text, View } from "react-native";
 
 import { icons } from "@/constants/icons";
 import { images } from "@/constants/images";
 
 import { fetchMovies } from "@/services/api";
-import { updateSearchCount } from "@/services/appwrite";
-import useFetch from "@/services/useFetch";
 
 import MovieDisplayCard from "@/components/MovieCard";
 import SearchBar from "@/components/SearchBar";
+import { Movie } from "@/type/movie";
+
+function useDebounce<T>(value: T, delay: number): T {
+  // State to store the debounced value
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    // Set a timeout to update the debounced value after the delay
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    // Cleanup function: This is crucial!
+    // If the value changes (user types again) before the timeout finishes,
+    // the previous timeout is cancelled.
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]); // Rerun the effect if value or delay changes
+
+  return debouncedValue;
+}
 
 const Search = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [movies, setMovies] = useState<Movie[]>([]);
 
-  const {
-    data: movies = [],
-    loading,
-    error,
-    refetch: loadMovies,
-    reset,
-  } = useFetch(() => fetchMovies(searchQuery), false);
+  // 1. Create a debounced version of the search query
+  // We'll use a 500ms (0.5 second) delay.
+  const debouncedSearchQuery = useDebounce(searchQuery, 500);
 
-  const handleSearch = (text: string) => {
-    setSearchQuery(text);
-  };
-
-  // Debounced search effect
+  // 2. The useEffect now only runs when the debounced query changes
   useEffect(() => {
-    const timeoutId = setTimeout(async () => {
-      if (searchQuery.trim()) {
-        await loadMovies();
+    // Important: Only fetch if the query is not empty after debouncing
+    // You might want to remove this check if you want to show all movies 
+    // when the search box is cleared.
+    if (debouncedSearchQuery) { 
+      // Use an IIFE for the async call inside useEffect
+      (async () => {
+        console.log(`Fetching movies for: ${debouncedSearchQuery}`);
+        const data = await fetchMovies(debouncedSearchQuery);
+        setMovies(data);
+      })();
+    } else {
+        // Clear results when the search box is empty/cleared
+        setMovies([]);
+    }
 
-        // Call updateSearchCount only if there are results
-        if (movies?.length! > 0 && movies?.[0]) {
-          await updateSearchCount(searchQuery, movies[0]);
-        }
-      } else {
-        reset();
-      }
-    }, 500);
-
-    return () => clearTimeout(timeoutId);
-  }, [searchQuery]);
+    // A note on the dependency array:
+    // We only depend on 'debouncedSearchQuery'. 
+    // You must REMOVE 'movies' from the dependency array 
+    // to prevent infinite loops, as 'movies' is updated *inside* the effect.
+  }, [debouncedSearchQuery]);
 
   return (
     <View className="flex-1 bg-primary">
@@ -74,11 +92,11 @@ const Search = () => {
               <SearchBar
                 placeholder="Search for a movie"
                 value={searchQuery}
-                onChangeText={handleSearch}
+                onChangeText={setSearchQuery}
               />
             </View>
 
-            {loading && (
+            {/* {loading && (
               <ActivityIndicator
                 size="large"
                 color="#0000ff"
@@ -100,11 +118,10 @@ const Search = () => {
                   Search Results for{" "}
                   <Text className="text-accent">{searchQuery}</Text>
                 </Text>
-              )}
+              )} */}
           </>
         }
         ListEmptyComponent={
-          !loading && !error ? (
             <View className="mt-10 px-5">
               <Text className="text-center text-gray-500">
                 {searchQuery.trim()
@@ -112,7 +129,6 @@ const Search = () => {
                   : "Start typing to search for movies"}
               </Text>
             </View>
-          ) : null
         }
       />
     </View>
