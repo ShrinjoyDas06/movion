@@ -47,8 +47,11 @@ This project is built with modern technologies to ensure a high-quality, perform
 
 ---
 
-| ![Movion Home Screen](./assets/screenshots/index.jpg) | ![Movion Movie Details](./assets/screenshots/moviedetailspic.jpg) | ![Movion Search Movies](./assets/screenshots/savedmovies.jpg) |
-![Movion Saved List](./assets/screenshots/savedmovies.jpg) | ![Movion Profile Section](./assets/screenshots/profilesection.jpg) |
+## 🖼️ Screenshots
+
+| Home | Details | Search | Saved | Profile |
+| :---: | :---: | :---: | :---: | :---: |
+| <img src="./assets/screenshots/index.jpg" alt="Movion Home Screen" width="150"> | <img src="./assets/screenshots/moviedetailspic.jpg" alt="Movion Movie Details" width="150"> | <img src="./assets/screenshots/savedmovies.jpg" alt="Movion Search Movies" width="150"> | <img src="./assets/screenshots/savedmovies.jpg" alt="Movion Saved List" width="150"> | <img src="./assets/screenshots/profilesection.jpg" alt="Movion Profile Section" width="150"> |
 
 ---
 
