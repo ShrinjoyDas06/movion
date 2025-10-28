@@ -1,4 +1,5 @@
 import { fetchMovieDetails } from '@/services/api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
@@ -8,8 +9,9 @@ import { images } from "@/constants/images";
 import { MovieDetails } from '@/type/movie';
 
 const MovieDetailsPage = () => {
-  const { id } = useLocalSearchParams<{id: string}>();
+  const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
+
   const [movieDetails, setMovieDetails] = useState<MovieDetails>({
     Title: "",
     Year: "",
@@ -17,12 +19,57 @@ const MovieDetailsPage = () => {
     Type: "",
     Poster: "",
   });
+
+  const [isSaved, setIsSaved] = useState(false);
+
+  // Fetch movie details
   useEffect(() => {
     (async () => {
       const data = await fetchMovieDetails(id);
       setMovieDetails(data);
+      checkIfSaved(data.imdbID);
     })();
   }, []);
+
+  // Check if the movie is already saved
+  const checkIfSaved = async (imdbID: string) => {
+    try {
+      const saved = await AsyncStorage.getItem("savedMovies");
+      const savedMovies = saved ? JSON.parse(saved) : [];
+      const exists = savedMovies.some((m: MovieDetails) => m.imdbID === imdbID);
+      setIsSaved(exists);
+    } catch (error) {
+      console.error("Error checking saved movies:", error);
+    }
+  };
+
+  // Handle save or remove
+  const handleSaveMovie = async () => {
+    try {
+      const saved = await AsyncStorage.getItem("savedMovies");
+      const savedMovies = saved ? JSON.parse(saved) : [];
+
+      const alreadySaved = savedMovies.some(
+        (m: MovieDetails) => m.imdbID === movieDetails.imdbID
+      );
+
+      let updatedMovies;
+      if (alreadySaved) {
+        updatedMovies = savedMovies.filter(
+          (m: MovieDetails) => m.imdbID !== movieDetails.imdbID
+        );
+        setIsSaved(false);
+      } else {
+        updatedMovies = [...savedMovies, movieDetails];
+        setIsSaved(true);
+      }
+
+      await AsyncStorage.setItem("savedMovies", JSON.stringify(updatedMovies));
+    } catch (error) {
+      console.error("Error saving movie:", error);
+    }
+  };
+
   return (
     <View className="flex-1 bg-primary">
       <Image
@@ -34,13 +81,13 @@ const MovieDetailsPage = () => {
       <ScrollView
         className="flex-1"
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 30 }}
+        contentContainerStyle={{ paddingBottom: 50 }}
       >
         {/* Header with back button */}
         <View className="px-5 pt-12 pb-4 flex-row items-center">
-            <TouchableOpacity onPress={() => router.back()} className="mr-4">
-              <Image source={icons.home} className="w-6 h-6" />
-            </TouchableOpacity>
+          <TouchableOpacity onPress={() => router.back()} className="mr-4">
+            <Image source={icons.home} className="w-6 h-6" />
+          </TouchableOpacity>
           <Image source={icons.logo} className="w-10 h-8" />
         </View>
 
@@ -68,7 +115,7 @@ const MovieDetailsPage = () => {
                   </View>
                 )}
               </View>
-              
+
               {movieDetails.imdbRating && (
                 <View className="flex-row items-center mt-2">
                   <Text className="text-yellow-400 text-3xl font-bold">
@@ -79,6 +126,18 @@ const MovieDetailsPage = () => {
               )}
             </View>
           </View>
+
+          {/* ⭐ Save Button */}
+          <TouchableOpacity
+            onPress={handleSaveMovie}
+            className={`${
+              isSaved ? "bg-red-500" : "bg-yellow-500"
+            } rounded-full px-4 py-2 mt-4 self-start`}
+          >
+            <Text className="text-black font-bold">
+              {isSaved ? "❌ Remove Movie" : "⭐ Save Movie"}
+            </Text>
+          </TouchableOpacity>
 
           {/* Quick Info */}
           {(movieDetails.Runtime || movieDetails.Genre) && (
@@ -112,17 +171,19 @@ const MovieDetailsPage = () => {
           <View className="px-5 mt-6">
             <Text className="text-lg text-white font-bold mb-3">Ratings</Text>
             <View className="flex-row flex-wrap gap-3">
-              {movieDetails.Ratings.map((rating: { Source: string; Value: string }, index: number) => (
-                <View
-                  key={index}
-                  className="bg-white/5 px-4 py-3 rounded-lg flex-1 min-w-[45%]"
-                >
-                  <Text className="text-gray-400 text-xs mb-1">
-                    {rating.Source}
-                  </Text>
-                  <Text className="text-white font-bold">{rating.Value}</Text>
-                </View>
-              ))}
+              {movieDetails.Ratings.map(
+                (rating: { Source: string; Value: string }, index: number) => (
+                  <View
+                    key={index}
+                    className="bg-white/5 px-4 py-3 rounded-lg flex-1 min-w-[45%]"
+                  >
+                    <Text className="text-gray-400 text-xs mb-1">
+                      {rating.Source}
+                    </Text>
+                    <Text className="text-white font-bold">{rating.Value}</Text>
+                  </View>
+                )
+              )}
             </View>
           </View>
         )}
@@ -190,7 +251,6 @@ const MovieDetailsPage = () => {
       </ScrollView>
     </View>
   );
+};
 
-}
-
-export default MovieDetailsPage
+export default MovieDetailsPage;
