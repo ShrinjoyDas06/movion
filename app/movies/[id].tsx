@@ -4,9 +4,9 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
-import { icons } from "@/constants/icons";
 import { images } from "@/constants/images";
 import { MovieDetails } from '@/type/movie';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 const MovieDetailsPage = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -21,17 +21,19 @@ const MovieDetailsPage = () => {
   });
 
   const [isSaved, setIsSaved] = useState(false);
+  const [isWatched, setIsWatched] = useState(false);
 
-  // Fetch movie details
+  // Fetch movie details and check saved/watched state
   useEffect(() => {
     (async () => {
       const data = await fetchMovieDetails(id);
       setMovieDetails(data);
       checkIfSaved(data.imdbID);
+      checkIfWatched(data.imdbID);
     })();
   }, []);
 
-  // Check if the movie is already saved
+  // Check if movie is saved
   const checkIfSaved = async (imdbID: string) => {
     try {
       const saved = await AsyncStorage.getItem("savedMovies");
@@ -43,7 +45,19 @@ const MovieDetailsPage = () => {
     }
   };
 
-  // Handle save or remove
+  // Check if movie is watched
+  const checkIfWatched = async (imdbID: string) => {
+    try {
+      const watched = await AsyncStorage.getItem("watchedMovies");
+      const watchedMovies = watched ? JSON.parse(watched) : [];
+      const exists = watchedMovies.some((m: MovieDetails) => m.imdbID === imdbID);
+      setIsWatched(exists);
+    } catch (error) {
+      console.error("Error checking watched movies:", error);
+    }
+  };
+
+  // Handle Save / Remove Movie
   const handleSaveMovie = async () => {
     try {
       const saved = await AsyncStorage.getItem("savedMovies");
@@ -70,6 +84,33 @@ const MovieDetailsPage = () => {
     }
   };
 
+  // Handle Mark as Watched / Unmark
+  const handleToggleWatched = async () => {
+    try {
+      const watched = await AsyncStorage.getItem("watchedMovies");
+      const watchedMovies = watched ? JSON.parse(watched) : [];
+
+      const alreadyWatched = watchedMovies.some(
+        (m: MovieDetails) => m.imdbID === movieDetails.imdbID
+      );
+
+      let updatedMovies;
+      if (alreadyWatched) {
+        updatedMovies = watchedMovies.filter(
+          (m: MovieDetails) => m.imdbID !== movieDetails.imdbID
+        );
+        setIsWatched(false);
+      } else {
+        updatedMovies = [...watchedMovies, movieDetails];
+        setIsWatched(true);
+      }
+
+      await AsyncStorage.setItem("watchedMovies", JSON.stringify(updatedMovies));
+    } catch (error) {
+      console.error("Error updating watched movies:", error);
+    }
+  };
+
   return (
     <View className="flex-1 bg-primary">
       <Image
@@ -86,9 +127,8 @@ const MovieDetailsPage = () => {
         {/* Header with back button */}
         <View className="px-5 pt-12 pb-4 flex-row items-center">
           <TouchableOpacity onPress={() => router.back()} className="mr-4">
-            <Image source={icons.home} className="w-6 h-6" />
+            <Ionicons name="arrow-back" size={24} color="white" />
           </TouchableOpacity>
-          <Image source={icons.logo} className="w-10 h-8" />
         </View>
 
         {/* Poster and Title Section */}
@@ -116,6 +156,7 @@ const MovieDetailsPage = () => {
                 )}
               </View>
 
+              {/* IMDb Rating */}
               {movieDetails.imdbRating && (
                 <View className="flex-row items-center mt-2">
                   <Text className="text-yellow-400 text-3xl font-bold">
@@ -127,17 +168,30 @@ const MovieDetailsPage = () => {
             </View>
           </View>
 
-          {/* ⭐ Save Button */}
-          <TouchableOpacity
+          
+          <View className="flex-row justify-center mt-4 gap-3">
+            <TouchableOpacity
             onPress={handleSaveMovie}
             className={`${
-              isSaved ? "bg-red-500" : "bg-yellow-500"
-            } rounded-full px-4 py-2 mt-4 self-start`}
-          >
-            <Text className="text-black font-bold">
-              {isSaved ? "❌ Remove Movie" : "⭐ Save Movie"}
+            isSaved ? "bg-red-500" : "bg-yellow-500"
+            } rounded-full px-3 py-3 w-[48%] items-center justify-center`}
+        >
+            <Text className="text-black font-bold text-sm">
+                {isSaved ? "Remove Movie" : "Save Movie"}
             </Text>
-          </TouchableOpacity>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+    onPress={handleToggleWatched}
+    className={`${
+      isWatched ? "bg-green-500" : "bg-blue-500"
+    } rounded-full px-3 py-3 w-[48%] items-center justify-center`}
+  >
+    <Text className="text-white font-bold text-sm">
+      {isWatched ? "Watched" : "Mark as Watched"}
+    </Text>
+  </TouchableOpacity>
+</View>
 
           {/* Quick Info */}
           {(movieDetails.Runtime || movieDetails.Genre) && (

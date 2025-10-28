@@ -1,9 +1,9 @@
 import {
-  FlatList,
-  Image,
-  ScrollView,
-  Text,
-  View
+    FlatList,
+    Image,
+    ScrollView,
+    Text,
+    View
 } from "react-native";
 
 import { fetchAllMovies } from "@/services/api";
@@ -45,7 +45,7 @@ const Index = () => {
               onChangeText={setSearchQuery}
             />
               <Text className="text-lg text-white font-bold mt-5 mb-3">
-                Latest Movies
+                Movies you should try
               </Text>
 
               <FlatList
