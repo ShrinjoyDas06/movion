@@ -15,6 +15,8 @@ Discover, Explore & Track Movies You Love 🍿
 
 Whether you’re looking for a new movie to watch, tracking films you've already seen, or saving a list for later, Movion provides a seamless and elegant experience.
 
+Demo App Link (android) - 🔗 https://expo.dev/artifacts/eas/ai4SPZAqweHd5iWZB1dye6.apk
+
 ---
 
 ## ✨ Features
